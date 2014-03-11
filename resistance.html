@@ -58,8 +58,10 @@
       var r2 = document.getElementById('resistance2');
       var r3 = document.getElementById('resistance3');
       var r4 = document.getElementById('resistance4');
+      var isScroll = true;
       
       window.onload = setResistance;
+      window.onhashchange = setResistance;
       r1.onscroll = getResistance;
       r2.onscroll = getResistance;
       r3.onscroll = getResistance;
@@ -78,6 +80,7 @@
         }
         resistance /= Math.pow(10, i*3);
         resistance = resistance + deniminations[i];
+        isScroll = false;
         location.hash = resistance;
       }
       
@@ -87,7 +90,7 @@
       
       function setResistance() {
         var resistance = location.hash.replace('#','');
-        if (!(/^[1-9]\.?[0-9]?[kMG]?$/i).test(resistance)) return;
+        if (!(/^[1-9]\.?[0-9]*[kMG]?$/i).test(resistance)) return;
       
         var deniminations = ['k','M','G'];
         var zeros = '';
@@ -98,6 +101,7 @@
             break;
           }
         }
+        resistance -= 0;
       
         for(var i=0; resistance > 10; i++) { resistance /= 10; }
         var digits = i - 1;
@@ -105,10 +109,13 @@
         var dig2 = Math.round((resistance - dig1) * 10);
         var dig4 = 2;
       
-        scrollTo(r1, dig1 - 1);
-        scrollTo(r2, dig2);
-        scrollTo(r3, digits);
-        scrollTo(r4, dig4);
+        if(isScroll) {
+          scrollTo(r1, dig1 - 1);
+          scrollTo(r2, dig2);
+          scrollTo(r3, digits);
+          scrollTo(r4, dig4);
+        }
+        isScroll = true;
       }
       
       function scrollTo(element, index) {
