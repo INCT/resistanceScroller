@@ -62,7 +62,7 @@
         }
         resistance -= 0;
 
-        for(var i=0; resistance > 10; i++) { resistance /= 10; }
+        for(var i=0; resistance >= 10; i++) { resistance /= 10; }
         var digits = i - 1;
         var dig1 = Math.floor(resistance);
         var dig2 = Math.round((resistance - dig1) * 10);
