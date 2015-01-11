@@ -1,0 +1,16 @@
+%html{:lang => 'ja'}
+  %head
+    %meta{:charset => 'UTF-8'}
+    %link{:rel => 'stylesheet', :href => 'style.css'}
+  %body
+    - colors = ['black','brown','red','orange','yellow','green','blue','purple','gray','white','gold','silver','none']
+
+    - 4.times do |t|
+      %div{:id => "resistance#{t + 1}", :class => "colors"}
+        %div{:class => "code space"}
+        - ci = (t == 0) ? (1..9) : (t != 3) ? (0..9) : [1,2,10,11,12]
+        - ci.each do |i|
+          %div{:class => "code #{colors[i]}", :data => i}
+        %div{:class => "code space"}
+
+    %script{:src => 'script.js'}
